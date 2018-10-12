@@ -7,7 +7,8 @@ export default class PushButton extends React.Component{
       console.log(props)
     super(props);
     this.state = {
-      room: props.match.params.room
+      room: props.match.params.room,
+      buttonid: props.match.params.id
     }
   }
 
@@ -20,7 +21,7 @@ export default class PushButton extends React.Component{
   }
 
   submitTap = () => {
-    this.socket.emit('message', {msg: "I am amazing", timestamp:Date.now()})
+    this.socket.emit('message', {msg: this.state.buttonid, timestamp:Date.now()})
   }
 
   render(){
