@@ -10,7 +10,7 @@ export class Chat extends React.Component{
         this.state = {
             messages:[],
             input:'',
-            room: props.room
+            room: props.match.params.aquello
         }
     }
 
