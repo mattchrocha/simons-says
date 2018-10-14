@@ -14,11 +14,14 @@ class Game extends Component {
   }
 
   newGame = (name) => {
-    let creator = ObjectId
-    this.service.newGame({name, creator})
+    let creator = "5bbe158395b68f1bcbe52963"
+    
+    this.service.newGame(name, creator)
       .then(game => {
+        
         this.setState({game: game.name})
       })
+      .catch(error => console.log(error))
   }
 
   render() {

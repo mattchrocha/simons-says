@@ -10,13 +10,14 @@ class NewGameForm extends Component {
 
   handleFormSubmit = (event) => {
     event.preventDefault();
-    const name = this.state.username;
+    const name = this.state.name;
+    console.log(name)
     this.props.createGame(name)
   }
 
   handleChange = (event) => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
+    const value = event.target.value;
+    this.setState({ name: value });
   }
 
   render() {
