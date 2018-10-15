@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import PushButton from '../pushbutton/PushButton';
 import GameService from './GameService';
 import io from 'socket.io-client';
+import dotenv from 'dotenv';
 
 class Game extends Component {
   constructor(props){

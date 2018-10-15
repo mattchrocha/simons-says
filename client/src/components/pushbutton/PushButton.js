@@ -3,6 +3,7 @@ import io from 'socket.io-client';
 import './pushbutton.css';
 import generateGradient from './scripts.js';
 
+
 export default class PushButton extends React.Component{
   constructor(props){
     console.log("prueba")
