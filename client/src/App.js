@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
 // import {Chat} from './components/chat';
-import PushButton from './components/PushButton';
+import PushButton from './components/pushbutton/PushButton';
 import Game from './components/game/Game';
 
 class App extends Component {

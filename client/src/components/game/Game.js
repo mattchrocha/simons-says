@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import PushButton from '../PushButton';
+import PushButton from '../pushbutton/PushButton';
 import NewGameForm from './NewGameForm';
 import GameService from './GameService';
 import io from 'socket.io-client';
@@ -62,10 +62,12 @@ class Game extends Component {
       return this.setState({sequence, roundSequence: [], round, message: "new round"})
     } else {
       roundSequence.push(id);
-      return this.checkSequence(roundSequence, sequence) ? 
+      if (!this.checkSequence(roundSequence, sequence)) {
+        this.socket.emit('feedback', "failure");
+        this.setState({message: "you lost", sequence: [], roundSequence: [], round: 0});
+      } else {
         (roundSequence.length === sequence.length) ? this.setState({roundSequence, message:"add button to the sequence"}) : this.setState({roundSequence, message:"keep on"})
-        :
-        this.setState({message: "you lost"});
+      }
     }
   }
 

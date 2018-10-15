@@ -28,6 +28,10 @@ module.exports = (io) => {
           }); 
         })
 
+        socket.on('feedback', feedback =>{
+          socket.broadcast.in(room).emit('feedback', feedback);
+        })
+
         socket.on('sequence', id => {
           console.log(id)
           socket.broadcast.in(room).emit('sequence', id);

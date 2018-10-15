@@ -1,0 +1,8 @@
+.screenbutton {
+  width: 100vw;
+  height: 100vh;
+  /* -webkit-transition: background-color 2s;
+  transition: background-color 2s; */
+  /* background-color: aquamarine; */
+  opacity: 0.4;
+}
