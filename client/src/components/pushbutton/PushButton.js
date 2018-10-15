@@ -1,7 +1,7 @@
 import React from 'react';
 import io from 'socket.io-client';
 import './pushbutton.css';
-import './scripts.js';
+import generateGradient from './scripts.js';
 
 export default class PushButton extends React.Component{
   constructor(props){
@@ -11,8 +11,9 @@ export default class PushButton extends React.Component{
     this.state = {
       room: props.match.params.room,
       id: null,
-      bgcolor: "aquamarine"
+      bgcolor: generateGradient()
       // buttonid: props.match.params.id
+      
     }
   }
 
@@ -25,7 +26,9 @@ export default class PushButton extends React.Component{
     });
 
     this.socket.on('feedback', feedback => {
-      if (feedback === "failure") this.onFailure()
+      if (feedback === "failure") this.onFailure();
+      if (feedback === "success") this.onSuccess();
+      if (feedback === "round") this.onSuccess();
     });
   }
 
@@ -46,7 +49,15 @@ export default class PushButton extends React.Component{
     let screenbutton = document.getElementsByClassName('screenbutton')[0];
     screenbutton.setAttribute("style", `opacity: 1;  background-color: ${this.state.bgcolor}`);
     setTimeout(() => {
-      screenbutton.setAttribute("style", `transition: opacity 2s; background-color: ${this.state.bgcolor}`);
+      screenbutton.setAttribute("style", `transition: opacity 1s; background-color: ${this.state.bgcolor}`);
+    }, 300)
+  }
+
+  onRound = () => {
+    let screenbutton = document.getElementsByClassName('screenbutton')[0];
+    screenbutton.setAttribute("style", "background-color: green; opacity: 1");
+    setTimeout(() => {
+      screenbutton.setAttribute("style", `transition: background-color 2s, opacity 2s; background-color: ${this.state.bgcolor}`);
     }, 1000)
   }
 

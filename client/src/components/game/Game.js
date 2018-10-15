@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import PushButton from '../pushbutton/PushButton';
-import NewGameForm from './NewGameForm';
 import GameService from './GameService';
 import io from 'socket.io-client';
 
@@ -59,13 +58,15 @@ class Game extends Component {
     if (roundSequence.length === sequence.length){
       round++;
       sequence.push(id);
-      return this.setState({sequence, roundSequence: [], round, message: "new round"})
+      this.socket.emit('feedback', {id, feedback: "round"});
+      this.setState({sequence, roundSequence: [], round, message: "new round"})
     } else {
       roundSequence.push(id);
       if (!this.checkSequence(roundSequence, sequence)) {
-        this.socket.emit('feedback', "failure");
+        this.socket.emit('feedback', {id, feedback: "failure"});
         this.setState({message: "you lost", sequence: [], roundSequence: [], round: 0});
       } else {
+        this.socket.emit('feedback', {id, feedback: "success"});
         (roundSequence.length === sequence.length) ? this.setState({roundSequence, message:"add button to the sequence"}) : this.setState({roundSequence, message:"keep on"})
       }
     }
@@ -91,16 +92,11 @@ class Game extends Component {
   render() {
     return (
       <div className="Game">
-        {!this.state.game?
-          <NewGameForm createGame={name => this.requestButtons()}/>
-          :
-        <Switch>
-
-          <Route exact path='/:room/:id' component={PushButton}/>
-        </Switch>
-        }
-        <div>{this.state.round}</div>
-        <div>{this.state.message}</div>
+        <div style={{position: "fixed", width: "100%"}}>
+          <div>{this.state.round}</div>
+          <div>{this.state.message}</div>
+        </div>
+        <Route exact path="/game/:room" component={PushButton}/>
       </div>
     );
   }

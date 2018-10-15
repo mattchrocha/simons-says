@@ -28,8 +28,9 @@ module.exports = (io) => {
           }); 
         })
 
-        socket.on('feedback', feedback =>{
-          socket.broadcast.in(room).emit('feedback', feedback);
+        socket.on('feedback', ({id, feedback}) =>{
+          feedback === "success" ? socket.broadcast.to(id).emit('feedback', feedback)
+          : socket.broadcast.in(room).emit('feedback', feedback)
         })
 
         socket.on('sequence', id => {
