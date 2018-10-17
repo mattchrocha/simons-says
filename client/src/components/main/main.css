@@ -1,13 +1,14 @@
 html, body, #root, .App {
-  height: 100%;
+  min-height: 100vh;
 }
 
 .tap-main {
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-flow: column nowrap;
   background-color: red;
 }
+
 .example-enter {
   transform: translate(100%);
 }

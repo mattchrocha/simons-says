@@ -1,17 +1,20 @@
 .tap-main-container {
   flex: 1 0;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin: 30px auto;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+  width: 100%;
   max-width: 1200px;
   padding: 0 25px;
   box-sizing: border-box;
   justify-content: center;
+  overflow-y: scroll;
 }
 .tap-main-container figure{
   width: 100%;
+  max-width: 800px;
+  margin-bottom: 30px;
 }
 .tap-homelogo {
   display: block;
