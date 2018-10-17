@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>NavProfile</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="0 0 32 0 32 32 0 32"></polygon>
+    </defs>
+    <g id="NavProfile" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-3">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Clip-2"></g>
+            <path d="M16,28.6925065 C12.9405685,28.6925065 10.1705426,27.6171576 7.97932817,25.8397933 C10.25323,23.3178295 13.0645995,21.9534884 16,21.9534884 C18.9354005,21.9534884 21.74677,23.3178295 24.0206718,25.8397933 C21.8294574,27.6171576 19.0594315,28.6925065 16,28.6925065 M16,8.18604651 C18.7286822,8.18604651 20.9612403,10.4186047 20.9612403,13.1472868 C20.9612403,15.875969 18.7286822,18.1085271 16,18.1085271 C13.2713178,18.1085271 11.0387597,15.875969 11.0387597,13.1472868 C11.0387597,10.4186047 13.2713178,8.18604651 16,8.18604651 M16,0 C7.19379845,0 0,7.15245478 0,16 C0,24.8062016 7.15245478,32 16,32 C24.8475452,32 32,24.8062016 32,16 C32,7.19379845 24.8062016,0 16,0" id="Fill-1" fill="#FFFFFF" mask="url(#mask-2)"></path>
+        </g>
+    </g>
+</svg>

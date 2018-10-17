@@ -1,0 +1,22 @@
+.tap-navbar {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: center;
+}
+
+.tap-navbar a{
+  height: 32px;
+  display: flex;
+  align-content: center;
+}
+
+.tap-navbrand {
+  display: flex;
+  align-items: center;
+}
+
+.tap-navbrand img{
+  display: block;
+}

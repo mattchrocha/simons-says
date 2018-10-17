@@ -6,17 +6,26 @@ import { Switch, Route } from 'react-router-dom';
 import PushButton from './components/pushbutton/PushButton';
 import Game from './components/game/Game';
 import NewGame from './components/game/NewGame';
+import Navbar from './components/navbar/Navbar';
+import '@fortawesome/fontawesome-free/css/all.css';
+import disableScroll from './disablescroll'
 
 class App extends Component {
+  componentDidMount(){
+    disableScroll();
+  }
+
   render() {
     return (
       <div className="App">
-        <Switch>
-          <Route exact path='/' component={NewGame}/>
-          <Route exact path='/game/:room' component={Game}/>
-          <Route exact path='/:room' component={PushButton}/>
-        </Switch> 
-      </div>
+        <Navbar/>
+          <Switch>
+            <Route exact path='/' component={NewGame}/>
+            <Route exact path='/game/:room' component={Game}/>
+            <Route exact path='/:room' component={PushButton}/>
+          </Switch> 
+        </div>
+        
     );
   }
 }
