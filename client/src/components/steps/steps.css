@@ -1,0 +1,46 @@
+.tap-main-container {
+  flex: 1 0;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  max-width: 1200px;
+  padding: 0 25px;
+  box-sizing: border-box;
+  justify-content: center;
+}
+.tap-main-container figure{
+  width: 100%;
+}
+.tap-homelogo {
+  display: block;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.tap-homelogo img {
+  max-width: 560px;
+  width: 100%;
+}
+
+.tap-homelogo.one{
+  opacity: 1;
+}
+.tap-homelogo.two{
+  opacity: 0.8;
+}
+.tap-homelogo.three{
+  opacity: 0.6;
+}
+.tap-homelogo.four{
+  opacity: 0.4;
+}
+.tap-homelogo.five{
+  opacity: 0.2;
+}
+
+.tap-hometext {
+  font-size: 20px;
+  width: 200px;
+}

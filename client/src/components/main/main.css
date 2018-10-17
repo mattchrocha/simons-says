@@ -1,0 +1,24 @@
+html, body, #root, .App {
+  height: 100%;
+}
+
+.tap-main {
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  background-color: red;
+}
+.example-enter {
+  transform: translate(100%);
+}
+.example-enter.example-enter-active {
+  transform: translate(0%);
+  transition: transform 1000ms ease-in-out;
+}
+.example-exit {
+  transform: translate(0%);
+}
+.example-exit.example-exit-active {
+  transform: translate(-100%);
+  transition: transform 1000ms ease-in-out;
+}

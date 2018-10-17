@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,600,600i,700,700i,800,800i,900,900i');
+
 .App {
   text-align: center;
 }
@@ -29,4 +31,17 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+html, body, #root, .App {
+  color: white;
+  font-family: Muli;
+  font-weight: 200;
+  font-style: italic;
+  font-size: 16px;
+}
+
+.bold-and-underline{
+  font-weight: 800;
+  border-bottom: 1px solid white;  
 }
