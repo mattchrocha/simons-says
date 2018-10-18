@@ -53,6 +53,33 @@
 }
 
 .tap-hometext {
+  font-size: 18px;
+  width: 260px;
+}
+
+.tap-hometext.small{
   font-size: 20px;
   width: 200px;
+}
+
+
+.tap-input {
+  border-radius: 30px;
+    border: none;
+    width: 260px;
+    box-sizing: border-box;
+    padding: 20px 25px;
+    font-family: 'Muli';
+    font-weight: 800;
+    font-size: 20px;
+    color: #cfc18e;
+    margin-top: 16px;
+}
+
+.tap-input::placeholder{
+  color: #cfc18e;
+}
+
+.tap-input:focus{
+  outline: none;
 }
