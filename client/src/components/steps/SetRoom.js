@@ -13,15 +13,27 @@ export default class Home extends Component {
     }
   }
   
-  componentDidUpdate(){
-
+  componentDidMount(){
+    document.onkeydown = e => {
+      if (e.keyCode === 13){
+        this.handleSubmit()
+      }
+    }
   }
+
   handleChange = (value) => {
     let isDisabled;
     value === "" ? isDisabled = true : isDisabled = false;
     this.setState({isDisabled, roomName: value})
   }
   
+  handleSubmit = () => {
+    let {roomName} = this.state;
+    if (roomName !== "") {
+      console.log("submits")
+      this.props.getRoom(roomName)
+    }
+  }
 
   render() {
     return (
@@ -29,7 +41,7 @@ export default class Home extends Component {
         <main className="tap-main-container">
         
           <figure>
-              <img src={setRoom} alt="TapCode Logo" className="tap-homelogo one"/>
+              <img src={setRoom} alt="Set Room Step" className="tap-homelogo one"/>
           </figure>
 
           <div className="tap-hometext">
@@ -38,7 +50,7 @@ export default class Home extends Component {
 
           <input placeholder="YourGameRoom" className="tap-input" value={this.state.roomName} onChange={e => this.handleChange(e.target.value)}></input>
 
-          <OutlineButton text="Next >" isDisabled={this.state.isDisabled} onClick={e => this.props.nextPage()} message={this.state.message}/>
+          <OutlineButton text="Next >" isDisabled={this.state.isDisabled} onClick={e => this.handleSubmit()} message={this.state.message}/>
 
         </main>
       </div>

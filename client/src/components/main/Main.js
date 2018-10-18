@@ -5,6 +5,7 @@ import Navfix from "../navfix/Navfix";
 import TodoList from "./TodoList";
 import Home from "../steps/Home";
 import SetRoom from "../steps/SetRoom";
+import SetPlayers from "../steps/SetPlayers";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 export default class Main extends Component {
@@ -13,7 +14,9 @@ export default class Main extends Component {
     this.state = {
       backgroundColor: "#BFACFD",
       page: "Home",
-      message: ""
+      message: "",
+      gameRoom: "",
+      game: false
     };
   }
   nextPage = () => {
@@ -26,9 +29,20 @@ export default class Main extends Component {
     if (this.state.page === "SetRoom"){
       this.setState({page: null})
       setTimeout(()=>{
+        this.setState({page: "SetPlayers", backgroundColor: "#ACBDFD"})
+      }, 1020)
+    }
+    if (this.state.page === "SetPlayers"){
+      this.setState({page: null})
+      setTimeout(()=>{
         this.setState({page: "Home", backgroundColor: "#BFACFD"})
       }, 1020)
     }
+  }
+
+  getRoom = (roomName) => {
+    this.setState({gameRoom: roomName})
+    this.nextPage();
   }
 
   render() {
@@ -40,9 +54,20 @@ export default class Main extends Component {
       )
       if (this.state.page === "SetRoom") return (
         <CSSTransition timeout={{enter: 1000, exit: 900}} classNames="example" key="home2">
-          <SetRoom nextPage={e => this.nextPage()}/>
+          <SetRoom getRoom={roomName => this.getRoom(roomName)}/>
         </CSSTransition>
       )
+      if (this.state.page === "SetPlayers") return (
+        <CSSTransition timeout={{enter: 1000, exit: 900}} classNames="example" key="home2">
+          <SetPlayers getRoom={roomName => this.getRoom(roomName)}/>
+        </CSSTransition>
+      )
+    }
+
+    let game = () => {
+      if (this.state.game){
+        return (<Home />)
+      }
     }
 
 
@@ -52,6 +77,7 @@ export default class Main extends Component {
         <TransitionGroup className="home-pages">
           {thisPage()}
         </TransitionGroup>
+        {game()}
       </div>
     );
   }

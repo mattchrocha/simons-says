@@ -20,7 +20,7 @@
   position: relative;
 }
 
-.tap-main-container figure{
+.tap-main-container figure {
   width: 100%;
   max-width: 800px;
   margin-bottom: 30px;
@@ -36,19 +36,19 @@
   width: 100%;
 }
 
-.tap-homelogo.one{
+.tap-homelogo.one {
   opacity: 1;
 }
-.tap-homelogo.two{
+.tap-homelogo.two {
   opacity: 0.8;
 }
-.tap-homelogo.three{
+.tap-homelogo.three {
   opacity: 0.6;
 }
-.tap-homelogo.four{
+.tap-homelogo.four {
   opacity: 0.4;
 }
-.tap-homelogo.five{
+.tap-homelogo.five {
   opacity: 0.2;
 }
 
@@ -57,29 +57,64 @@
   width: 260px;
 }
 
-.tap-hometext.small{
+.tap-hometext.small {
   font-size: 20px;
   width: 200px;
 }
 
-
 .tap-input {
   border-radius: 30px;
-    border: none;
-    width: 260px;
-    box-sizing: border-box;
-    padding: 20px 25px;
-    font-family: 'Muli';
-    font-weight: 800;
-    font-size: 20px;
-    color: #cfc18e;
-    margin-top: 16px;
+  border: none;
+  width: 260px;
+  box-sizing: border-box;
+  padding: 20px 25px;
+  font-family: "Muli";
+  font-weight: 800;
+  font-size: 20px;
+  color: #cfc18e;
+  margin-top: 16px;
 }
 
-.tap-input::placeholder{
+.tap-input::placeholder {
   color: #cfc18e;
 }
 
-.tap-input:focus{
+.tap-input:focus , .tap-input-player:focus, .tap-bttn-addplayer:focus{
   outline: none;
+}
+
+.tap-input-player {
+  display:block;
+  background-color: transparent;
+  border: none;
+  width: 200px;
+  box-sizing: border-box;
+  padding: 6px;
+  font-family: "Muli";
+  font-weight: 300;
+  font-size: 16px;
+  color: white;
+  border-bottom: 1px solid white;
+}
+
+.tap-input-player::placeholder {
+  color: white;
+}
+
+.add-player {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tap-bttn-addplayer {
+  display: block;
+  border: 3px solid white;
+  height: 32px;
+  width: 32px;
+  background-color: transparent;
+  border-radius: 50px;
+  color: white;
+  font-weight: 800;
+  font-size: 20px;
+  padding-bottom: 2px;
 }

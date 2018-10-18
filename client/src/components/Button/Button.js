@@ -3,23 +3,19 @@ import Ink from "../react-ink";
 import "./button.css";
 
 export class OutlineButton extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      message: props.message,
-      isDisabled: props.isDisabled
-    }
-  }
+  
   render() {
+    let message = this.props.message
+    let isDisabled = this.props.isDisabled
     let style = {}
-    if (this.state.isDisabled){
+    if (isDisabled){
       style = {opacity: 0.3}
     }
 
     return (
       <div className="on-footer">
-        <div class="bottom-message">{this.state.message}</div>
-        <button className="outline-button" onClick={e => this.props.onClick()} disabled={this.state.isDisabled} style={style}>
+        <div className="bottom-message">{message}</div>
+        <button className="outline-button" onClick={e => this.props.onClick()} disabled={isDisabled} style={style}>
           <Ink style={{color: "white"}}/>
           {this.props.text}
         </button>
