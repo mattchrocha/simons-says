@@ -39,6 +39,10 @@ module.exports = (io) => {
           socket.broadcast.in(room).emit('sequence', id);
         })
 
+        socket.on('disconnect', () => {
+          io.sockets.in(room).emit('request buttons')
+        });
+
         socket.on('message', data => {
           console.log("Received message from client");
           console.log(data);

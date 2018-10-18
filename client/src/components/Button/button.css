@@ -32,3 +32,8 @@
   margin-top: 26px;
   height: 24px;
 }
+
+.outline-button.filled{
+  border: none;
+  background: white;
+}

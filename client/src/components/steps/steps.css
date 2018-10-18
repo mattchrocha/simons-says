@@ -148,3 +148,33 @@
   font-style: normal;
   line-height: 25px;
 }
+
+.button.is-loading.superspinner{
+  background-color: transparent;
+  border: none;
+}
+
+.button.is-loading.superspinner::after{
+  border: 3px solid white;
+  border-right-color: transparent;
+  border-top-color: transparent;
+}
+
+.tap-onyourmarks {
+  width: 260px;
+  font-family: "Muli";
+  font-weight: 900;
+  font-size: 50px;
+  font-style: normal;
+  margin-top: 8px;
+  line-height: 63px;
+}
+
+.tap-players-onmarks {
+  width: 260px;
+  font-family: "Muli";
+  font-weight: 800;
+  font-size: 20px;
+  font-style: italic;
+  line-height: 25px;
+}

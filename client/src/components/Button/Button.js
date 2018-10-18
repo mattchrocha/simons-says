@@ -23,3 +23,26 @@ export class OutlineButton extends Component {
     );
   }
 }
+
+export class FilledButton extends Component {
+  
+  render() {
+    let isDisabled = this.props.isDisabled
+    let color = {color: this.props.color}
+    let opacity = {}
+    if (isDisabled){
+      opacity = {opacity: 0.3}
+    }
+    let style = {...opacity,...color}
+
+
+    return (
+      <div className="on-footer">
+        <button className="outline-button filled" onClick={e => this.props.onClick()} disabled={isDisabled} style={style}>
+          <Ink style={{color: "white"}}/>
+          {this.props.text}
+        </button>
+      </div>
+    );
+  }
+}
