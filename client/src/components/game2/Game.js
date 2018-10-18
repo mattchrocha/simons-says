@@ -10,7 +10,8 @@ class Game extends Component {
     super(props);
     this.service = new GameService();
     this.state = {
-      room: props.match.params.room,
+      room: props.room,
+      players: props.players,
       game: null,
       buttons: null,
       sequence: [],
@@ -44,13 +45,18 @@ class Game extends Component {
 
     this.socket.on('get buttons', (buttons) => {
       this.setState({buttons});
+      this.props.getConnectedButtons(buttons.length)
     });
 
     this.socket.on('sequence', (id) => {
       this.play(id)
     });
 
-    // this.requestButtons()
+    this.socket.on('request buttons', () => {
+      this.requestButtons()
+    });
+
+    this.requestButtons()
   }
 
   play = (id) => {
@@ -82,17 +88,17 @@ class Game extends Component {
   } 
 
   componentDidUpdate = () => {
-    console.log("updated")
+    console.log("game component updated")
     // console.log(this.state.buttons)
     // console.log(this.state.sequence)
-    console.log(`Round ${this.state.round}`)
-    console.log(`Round sequence: ${this.state.roundSequence}`)
-    console.log(`Total sequence: ${this.state.sequence}`)
+    // console.log(`Round ${this.state.round}`)
+    // console.log(`Round sequence: ${this.state.roundSequence}`)
+    // console.log(`Total sequence: ${this.state.sequence}`)
   }
 
   render() {
     return (
-      <div className="Game">
+      <div className="Game" style={{display: "none"}}>
         <div style={{position: "fixed", width: "100%"}}>
           <div>{this.state.round}</div>
           <div>{this.state.message}</div>

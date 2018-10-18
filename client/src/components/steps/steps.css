@@ -140,3 +140,11 @@
   line-height: 20px;
   font-style: normal;
 }
+
+.tap-input.roomname{
+  background-color: white;
+  text-align: center;
+  color: #8ECF92;
+  font-style: normal;
+  line-height: 25px;
+}

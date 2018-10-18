@@ -3,7 +3,7 @@ import "./steps.css";
 import setRoom from "../svg/SetRoom.svg";
 import {OutlineButton} from '../Button/Button'
 
-export default class Home extends Component {
+export default class SetRoom extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -30,7 +30,6 @@ export default class Home extends Component {
   handleSubmit = () => {
     let {roomName} = this.state;
     if (roomName !== "") {
-      console.log("submits")
       this.props.getRoom(roomName)
     }
   }

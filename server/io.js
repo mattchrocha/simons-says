@@ -17,6 +17,7 @@ module.exports = (io) => {
 
       socket.on('room', function(room) {
         socket.join(room);
+        io.sockets.in(room).emit('request buttons')
         console.log(`A user connected with id: ${socket.id} in ${room}`);
 
         socket.on('get buttons', data => {
