@@ -16,6 +16,7 @@ export default class Main extends Component {
       page: "Home",
       message: "",
       gameRoom: "",
+      players: [],
       game: false
     };
   }
@@ -45,6 +46,15 @@ export default class Main extends Component {
     this.nextPage();
   }
 
+  getPlayers = (newPlayers) => {
+    let {players} = this.state;
+    newPlayers.forEach(element => {
+      players.push(element)
+    });
+    this.setState({players})
+    // this.nextPage();
+  }
+
   render() {
     let thisPage = () => {
       if (this.state.page === "Home") return (
@@ -59,7 +69,7 @@ export default class Main extends Component {
       )
       if (this.state.page === "SetPlayers") return (
         <CSSTransition timeout={{enter: 1000, exit: 900}} classNames="example" key="home2">
-          <SetPlayers getRoom={roomName => this.getRoom(roomName)}/>
+          <SetPlayers getPlayers={players => this.getPlayers(players)}/>
         </CSSTransition>
       )
     }
