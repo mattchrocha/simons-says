@@ -4,6 +4,7 @@ import PushButton from "../pushbutton/PushButton";
 import GameService from "./GameService";
 import io from "socket.io-client";
 import "./game.css";
+import disableScroll from "../../disablescroll";
 import dotenv from "dotenv";
 
 class Game extends Component {
@@ -67,16 +68,20 @@ class Game extends Component {
   }
 
   startGame1 = () => {
-    console.log("emite StartGame1")
-    this.socket.emit("get start buttons");
+    // this.socket.emit("get start buttons");
+    this.startGame2()
   }
 
   startGame2 = () => {
-    console.log("llega a StartGame2")
+    console.log("botones");
+    console.log(this.state.buttons);
+    disableScroll();
     setTimeout(()=>{
       this.socket.emit("start game");
+      setTimeout(()=> {
 
-    }, 2000)
+      }, 3200)
+    }, 500)
   }
 
   play = id => {

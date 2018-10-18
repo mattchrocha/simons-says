@@ -1,10 +1,10 @@
 {
-  "main.css": "/static/css/main.5a615e26.chunk.css",
-  "main.js": "/static/js/main.35d5453e.chunk.js",
-  "main.js.map": "/static/js/main.35d5453e.chunk.js.map",
+  "main.css": "/static/css/main.e49c0f48.chunk.css",
+  "main.js": "/static/js/main.c8571956.chunk.js",
+  "main.js.map": "/static/js/main.c8571956.chunk.js.map",
   "static/css/1.19a9467b.chunk.css": "/static/css/1.19a9467b.chunk.css",
-  "static/js/1.5cef4a68.chunk.js": "/static/js/1.5cef4a68.chunk.js",
-  "static/js/1.5cef4a68.chunk.js.map": "/static/js/1.5cef4a68.chunk.js.map",
+  "static/js/1.09ca4fda.chunk.js": "/static/js/1.09ca4fda.chunk.js",
+  "static/js/1.09ca4fda.chunk.js.map": "/static/js/1.09ca4fda.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.229c360f.js",
   "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
   "static/media/NavProfile.svg": "/static/media/NavProfile.a4ca66a8.svg",
@@ -13,9 +13,9 @@
   "static/media/SetRoom.svg": "/static/media/SetRoom.27202ad6.svg",
   "static/media/SetPlayers.svg": "/static/media/SetPlayers.81edeb81.svg",
   "static/media/SetButtons.svg": "/static/media/SetButtons.ddad1846.svg",
+  "static/css/main.e49c0f48.chunk.css.map": "/static/css/main.e49c0f48.chunk.css.map",
   "static/css/1.19a9467b.chunk.css.map": "/static/css/1.19a9467b.chunk.css.map",
-  "static/css/main.5a615e26.chunk.css.map": "/static/css/main.5a615e26.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.a14c45e25a3532723efc1d5ddc0f17d9.js": "/precache-manifest.a14c45e25a3532723efc1d5ddc0f17d9.js",
+  "precache-manifest.d3d1a448aa9e83fdfbf5ad5914eb826c.js": "/precache-manifest.d3d1a448aa9e83fdfbf5ad5914eb826c.js",
   "service-worker.js": "/service-worker.js"
 }

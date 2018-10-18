@@ -7,13 +7,13 @@
 
 .tap-main-container {
   flex: 1 0;
-  margin: 30px auto 0 auto;
+  margin: 15px auto 0 auto;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
   width: 100%;
   max-width: 1200px;
-  padding: 0 25px 148px 25px;
+  padding: 0 25px 0 25px;
   box-sizing: border-box;
   justify-content: center;
   overflow-y: scroll;
@@ -23,7 +23,7 @@
 .tap-main-container figure {
   width: 100%;
   max-width: 800px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 .tap-homelogo {
   display: block;
@@ -60,6 +60,7 @@
 .tap-hometext.small {
   font-size: 20px;
   width: 200px;
+  margin-bottom: -30px;
 }
 
 .tap-input {

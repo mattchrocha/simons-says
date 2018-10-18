@@ -20,7 +20,7 @@ export default class OnYourMarks extends Component {
           zIndex: "1"
         }}
       >
-        <main className="tap-main-container" style={{paddingBottom: "98px"}}>
+        <main className="tap-main-container" style={{paddingBottom: "0"}}>
 
           <div>
             <div className="tap-players-onmarks">

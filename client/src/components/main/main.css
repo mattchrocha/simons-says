@@ -29,3 +29,28 @@ html, body, #root, .App {
   /* transform: translate(-100%); */
   transition: right 1000ms ease-in-out;
 }
+
+.connect-button {
+  width: 100vw;
+    height: 100vh;
+    display: flex;
+    position: relative;
+}
+
+.fademessage-enter{
+  opacity: 0;
+}
+
+.fademessage-enter.fademessage-enter-active{
+  opacity: 1;
+  transition: opacity 100ms ease-in;
+}
+
+.fademessage-exit{
+  opacity: 1;
+}
+
+.fademessage-exit.fademessage-exit-active{
+  opacity: 0;
+  transition: opacity 1000ms ease-out;
+}

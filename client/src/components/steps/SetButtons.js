@@ -52,7 +52,7 @@ export default class SetButtons extends Component {
         }}
       >
         <main className="tap-main-container">
-          <figure>
+          <figure style={{marginBottom: "0"}}>
             <img
               src={setButtons}
               alt="Set Buttons Step"
@@ -74,7 +74,7 @@ export default class SetButtons extends Component {
           <div className="tap-hometext" style={{ marginTop: "16px" }}>
             Add as many as you want!
           </div>
-          <div style={{marginTop: "34px", marginBottom: "-30px"}}>
+          <div style={{marginTop: "4px", marginBottom: "-30px"}}>
             <div className="button is-loading superspinner">Loading</div>
             <div className="bottom-message" style={{ marginTop: "0" }}>
               {buttonsNumber}

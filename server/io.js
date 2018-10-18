@@ -50,7 +50,6 @@ module.exports = (io) => {
         })
 
         socket.on('start game', () => {
-          console.log("LLEGA A STARTGAME")
           socket.broadcast.in(room).emit('feedback', "start")
         })
 

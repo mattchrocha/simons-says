@@ -9,6 +9,7 @@ import NewGame from "./components/game/NewGame";
 import Navbar from "./components/navbar/Navbar";
 import "@fortawesome/fontawesome-free/css/all.css";
 import disableScroll from "./disablescroll";
+import PushButtonLoader from "./components/pushbutton/PushButtonLoader"
 
 import Main from "./components/main/Main";
 
@@ -23,7 +24,7 @@ class App extends Component {
         <Navbar />
         <Switch>
           <Route exact path="/" render={()=> <Main />} />
-          <Route exact path="/:room" render={()=> <PushButton room="guay" />} />
+          <Route exact path="/:room" component={PushButtonLoader} />
         </Switch>
         
       </div>
