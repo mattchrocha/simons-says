@@ -10,16 +10,21 @@ html, body, #root, .App {
 }
 
 .example-enter {
-  transform: translate(100%);
+  right: -100%;
+  /* transform: translate(100%); */
 }
 .example-enter.example-enter-active {
-  transform: translate(0%);
-  transition: transform 1000ms ease-in-out;
+  /* transform: translate(0%); */
+  right: 0%;
+  transition: right 1000ms ease-in-out;
 }
 .example-exit {
-  transform: translate(0%);
+  right: 0%;
+  /* transform: translate(0%); */
+
 }
 .example-exit.example-exit-active {
-  transform: translate(-100%);
-  transition: transform 1000ms ease-in-out;
+  right: 100%;
+  /* transform: translate(-100%); */
+  transition: right 1000ms ease-in-out;
 }

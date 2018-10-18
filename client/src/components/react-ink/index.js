@@ -23,12 +23,13 @@ const MOUSE_LEFT = 0
 
 const defaultProps = {
   background: true,
+  color: '#FFFFFF',
   className: 'ink',
   duration: 1000,
   opacity: 0.25,
   radius: 150,
   recenter: true,
-  hasTouch: HAS_TOUCH
+  hasTouch: HAS_TOUCH,
 }
 
 export default class Ink extends React.PureComponent {
@@ -36,8 +37,7 @@ export default class Ink extends React.PureComponent {
     super(...arguments)
 
     this.state = {
-      color: 'transparent',
-      density: 1,
+      density: 0.2,
       height: 0,
       store: Store(this.tick.bind(this)),
       width: 0
@@ -63,7 +63,7 @@ export default class Ink extends React.PureComponent {
   }
 
   tick() {
-    let { ctx, color, density, height, width, store } = this.state
+    let { ctx, density, height, width, store } = this.state
 
     ctx.save()
 
@@ -71,7 +71,7 @@ export default class Ink extends React.PureComponent {
 
     ctx.clearRect(0, 0, width, height)
 
-    ctx.fillStyle = color
+    ctx.fillStyle = this.props.color
 
     if (this.props.background) {
       ctx.globalAlpha = store.getTotalOpacity(this.props.opacity)
@@ -116,7 +116,7 @@ export default class Ink extends React.PureComponent {
     }
 
     let { top, bottom, left, right } = el.getBoundingClientRect()
-    let { color } = window.getComputedStyle(el)
+
 
     let ctx = this.state.ctx || el.getContext('2d')
     let density = pixelRatio(ctx)
@@ -124,7 +124,7 @@ export default class Ink extends React.PureComponent {
     let width = right - left
     let radius = getMaxRadius(height, width, this.props.radius)
 
-    this.setState({ color, ctx, density, height, width }, () => {
+    this.setState({ ctx, density, height, width }, () => {
       this.state.store.add({
         duration: this.props.duration,
         mouseDown: timeStamp,
