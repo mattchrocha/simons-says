@@ -5,7 +5,7 @@ import { FilledButton } from "../Button/Button";
 export default class OnYourMarks extends Component {
 
   handleSubmit = () => {
-    this.props.nextPage();
+    this.props.startGame();
   };
 
   render(){

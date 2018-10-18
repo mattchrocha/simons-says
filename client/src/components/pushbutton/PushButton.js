@@ -10,9 +10,11 @@ export default class PushButton extends React.Component{
       console.log(props)
     super(props);
     this.state = {
-      room: props.match.params.room,
+      room: props.room,
       id: null,
-      bgcolor: generateGradient()
+      bgcolor: generateGradient(),
+      mainGameButton: props.mainGameButton,
+      bigMessage: ""
       // buttonid: props.match.params.id
       
     }
@@ -20,7 +22,6 @@ export default class PushButton extends React.Component{
 
   componentDidMount(){
     this.socket = io('localhost:3010');
-    
     this.socket.on('connect', () => {
       this.socket.emit('room', this.state.room);
       this.setState({id: this.socket.id});
@@ -30,7 +31,35 @@ export default class PushButton extends React.Component{
       if (feedback === "failure") this.onFailure();
       if (feedback === "success") this.onSuccess();
       if (feedback === "round") this.onSuccess();
+      if (feedback === "start") this.newGame();
     });
+    
+    if (this.state.mainGameButton){
+      console.log("reconoce Main button")
+      this.props.startGame()
+    }
+    
+  }
+
+  newGame = () => {
+    let screenbutton = document.getElementsByClassName('screenbutton')[0];
+    screenbutton.setAttribute("style", "background-color: #FF5A5A; opacity: 1");
+    this.setState({bigMessage: "READY"})
+    setTimeout(() => {
+      screenbutton.setAttribute("style", `transition: background-color 2s, opacity 2s; background-color: ${this.state.bgcolor}`);
+      setTimeout(() => {
+        screenbutton.setAttribute("style", "background-color: #FF5A5A; opacity: 1");
+        this.setState({bigMessage: "STEADY"})
+        setTimeout(()=> {
+          screenbutton.setAttribute("style", `transition: background-color 2s, opacity 2s; background-color: ${this.state.bgcolor}`);
+          setTimeout(()=> {
+            screenbutton.setAttribute("style", "background-color: #8ADF7C; opacity: 1");
+            this.setState({bigMessage: "GO!"})
+          },500)
+        },2000)
+      }, 500)
+    }, 2000)
+
   }
 
   submitTap = () => {
@@ -65,6 +94,7 @@ export default class PushButton extends React.Component{
   render(){
     return (
       <div className="screenbutton" style={{backgroundColor: this.state.bgcolor}} onClick={this.submitTap}>
+      <div className="big-message">{this.state.bigMessage}</div>
       </div>
     )
   }

@@ -19,7 +19,8 @@ export default class Main extends Component {
       gameRoom: "",
       players: [],
       game: false,
-      connectedButtons: 0
+      connectedButtons: 0,
+      displayGame: false
     };
   }
   nextPage = () => {
@@ -71,6 +72,13 @@ export default class Main extends Component {
     }
   }
 
+  startGame = () => {
+    this.setState({page: null});
+    setTimeout(()=>{
+      this.setState({displayGame: true, backgroundColor: "transparent"})
+    }, 1020)
+  }
+
   render() {
     let thisPage = () => {
       if (this.state.page === "Home") return (
@@ -95,14 +103,14 @@ export default class Main extends Component {
       )
       if (this.state.page === "OnYourMarks") return (
         <CSSTransition timeout={{enter: 1000, exit: 900}} classNames="example" key="onmarks">
-          <OnYourMarks players={this.state.players} color="#CF8EA3" nextPage={e => this.nextPage()}/>
+          <OnYourMarks players={this.state.players} color="#CF8EA3" startGame={e => this.startGame()}/>
         </CSSTransition>
       )
     }
 
     let game = () => {
       if (this.state.game){
-        return (<Game room={this.state.gameRoom} players={this.state.players} getConnectedButtons={buttons => this.getConnectedButtons(buttons)}/>)
+        return (<Game room={this.state.gameRoom} players={this.state.players} getConnectedButtons={buttons => this.getConnectedButtons(buttons)} displayGame={this.state.displayGame}/>)
       }
     }
 
@@ -110,9 +118,11 @@ export default class Main extends Component {
     return (
       <div className="tap-main" style={{ backgroundColor: this.state.backgroundColor}}>
         <Navfix />
-        <TransitionGroup className="home-pages">
-          {thisPage()}
-        </TransitionGroup>
+        {(!this.state.displayGame) && (
+          <TransitionGroup className="home-pages">
+            {thisPage()}
+          </TransitionGroup>
+        )}
         {game()}
       </div>
     );

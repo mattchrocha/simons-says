@@ -4,5 +4,17 @@
   /* -webkit-transition: background-color 2s;
   transition: background-color 2s; */
   /* background-color: aquamarine; */
-  opacity: 0.2;
+  opacity: 0.4;
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.big-message {
+  width: 260px;
+  font-weight: 800;
+  font-style: normal;
+  color: white;
 }

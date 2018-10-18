@@ -29,6 +29,16 @@ module.exports = (io) => {
           }); 
         })
 
+        socket.on('get start buttons', data => {
+          console.log("asks for buttons starting game")
+          io.in(room).clients((error, buttons) => {
+            if (error) throw error;
+            console.log(`CLIENTS CONECTED IN ${room}:`)
+            console.log(buttons);
+            io.sockets.in(room).emit('get start buttons', buttons);
+          }); 
+        })
+
         socket.on('feedback', ({id, feedback}) =>{
           feedback === "success" ? socket.broadcast.to(id).emit('feedback', feedback)
           : socket.broadcast.in(room).emit('feedback', feedback)
@@ -37,6 +47,11 @@ module.exports = (io) => {
         socket.on('sequence', id => {
           console.log(id)
           socket.broadcast.in(room).emit('sequence', id);
+        })
+
+        socket.on('start game', () => {
+          console.log("LLEGA A STARTGAME")
+          socket.broadcast.in(room).emit('feedback', "start")
         })
 
         socket.on('disconnect', () => {

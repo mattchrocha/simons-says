@@ -21,7 +21,11 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar />
-        <Main />
+        <Switch>
+          <Route exact path="/" render={()=> <Main />} />
+          <Route exact path="/:room" render={()=> <PushButton room="guay" />} />
+        </Switch>
+        
       </div>
     );
   }
