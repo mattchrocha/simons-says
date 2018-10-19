@@ -88,6 +88,7 @@
 .tap-input-player {
   display:block;
   background-color: transparent;
+  border-radius: 0;
   border: none;
   width: 200px;
   box-sizing: border-box;
@@ -119,6 +120,12 @@
   font-weight: 800;
   font-size: 20px;
   padding-bottom: 2px;
+}
+
+.tap-bttn-image {
+  display: block;
+  height: 32px;
+  width: 32px;
 }
 
 .new-player-box {

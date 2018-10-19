@@ -9,6 +9,7 @@
     "bloomer": "^0.6.3",
     "bulma": "^0.7.2",
     "dotenv": "^6.1.0",
+    "pizzicato": "^0.6.3",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-responsive-navbar": "^1.0.11",

@@ -58,7 +58,7 @@ export default class PushButtonLoader extends Component {
             </CSSTransition>
           )}
         </TransitionGroup>
-        <PushButton room={this.props.match.params.room}/>
+        <PushButton room={this.props.match.params.room} isConnected={this.state.connected}/>
       </div>
     );
   }

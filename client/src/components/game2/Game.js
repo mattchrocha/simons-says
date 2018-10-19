@@ -5,6 +5,7 @@ import GameService from "./GameService";
 import io from "socket.io-client";
 import "./game.css";
 import disableScroll from "../../disablescroll";
+import { OutlineButton } from "../Button/Button";
 
 class Game extends Component {
   constructor(props) {
@@ -23,7 +24,9 @@ class Game extends Component {
       playerIndex: 0,
       nextPlayer: null,
       round: 0,
-      message: "push first button of the sequence to start"
+      message: "push first button of the sequence to start",
+      gameEnds: false,
+      gameOn: false
     };
   }
 
@@ -77,6 +80,7 @@ class Game extends Component {
   }
 
   startGame2 = () => {
+    this.setState({gameEnds: false, gameOn: true})
     console.log("botones");
     console.log(this.state.buttons);
     disableScroll();
@@ -192,32 +196,51 @@ class Game extends Component {
     // else {
       roundSequence.push(id);
       if (!this.checkSequence(roundSequence, sequence)) {
+        
         this.socket.emit("feedback", { id, feedback: "failure" });
-
-        let {currentPlayer} = this.state;
-        let remainingPlayers = [...this.state.remainingPlayers]
-        remainingPlayers.splice(remainingPlayers.indexOf(currentPlayer), 1)
-        let message = "has been eliminated";
-        let content = {message, player: currentPlayer}
-
-        this.setState({remainingPlayers, isListening: false});
-        setTimeout(()=> {
-          this.socket.emit("player message", {type: "player eliminated", content});
-        },2100)
-        if (remainingPlayers.length === 1){
+        
+        if (this.state.players.length === 1){
           setTimeout(()=>{
-            let player = remainingPlayers[0];
-            let message = "wins";
+            let player = this.state.currentPlayer;
+            let message = "game over!";
             let content = {player, message};
             this.socket.emit("player message", {type: "wins", content});
+            setTimeout(() => {
+              this.setState({gameEnds: true, gameOn: false})
+              this.props.gameOver()
+            }, 6000)
           },4200)
         } else {
-          console.log(this.state.remainingPlayers)
-          this.setState({roundSequence: []})
-          setTimeout(()=>{
-            this.newRound()
-          },4200)
+          let {currentPlayer} = this.state;
+          let remainingPlayers = [...this.state.remainingPlayers]
+          remainingPlayers.splice(remainingPlayers.indexOf(currentPlayer), 1)
+          let message = "has been eliminated";
+          let content = {message, player: currentPlayer}
+  
+          this.setState({remainingPlayers, isListening: false});
+          setTimeout(()=> {
+            this.socket.emit("player message", {type: "player eliminated", content});
+          },2100)
+          if (remainingPlayers.length === 1){
+            setTimeout(()=>{
+              let player = remainingPlayers[0];
+              let message = "wins";
+              let content = {player, message};
+              this.socket.emit("player message", {type: "wins", content});
+              setTimeout(() => {
+                this.setState({gameEnds: true, gameOn: false})
+                this.props.gameOver()
+              }, 6000)
+            },4200)
+          } else {
+            
+            this.setState({roundSequence: []})
+            setTimeout(()=>{
+              this.newRound()
+            },4200)
+          }
         }
+        
         
 
       } else if (roundSequence.length === sequence.length){
@@ -260,7 +283,7 @@ class Game extends Component {
     let style = { ...displayGame };
     let mainButton = null;
     if (this.props.displayGame) {
-      mainButton = <PushButton room={this.state.room} mainGameButton={true} startGame={e => this.startGame1()}/>
+      mainButton = <PushButton room={this.state.room} mainGameButton={true} isConnected={true} startGame={e => this.startGame1()}/>
     }
 
     return mainButton;

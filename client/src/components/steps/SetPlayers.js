@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./steps.css";
 import setPlayers from "../svg/SetPlayers.svg";
 import {OutlineButton} from '../Button/Button';
+import add from '../svg/add.svg';
+import remove from '../svg/remove.svg';
 
 export default class SetPlayers extends Component {
   constructor(props){
@@ -9,16 +11,19 @@ export default class SetPlayers extends Component {
     this.state = {
       message: "Add at least one player",
       isDisabled: true,
+      opacity: "0.3", 
       player: "",
       newPlayers: []
     }
   }
 
   handleChange = (value) => {
-    // let isDisabled;
+    let opacity;
     // value === "" ? isDisabled = true : isDisabled = false;
-    
-    this.setState({player: value})
+    if (value === "") {
+      opacity = "0.3";
+    }
+    this.setState({player: value, opacity})
   }
 
   componentDidMount(){
@@ -63,7 +68,8 @@ export default class SetPlayers extends Component {
     let players = this.state.newPlayers.map(playerName => {
       return (
         <div key={playerName} className="new-player-box">
-          <button className="tap-bttn-addplayer" onClick={e=> this.removePlayer(playerName)}>-</button>
+          <img src={remove} className="tap-bttn-image" alt="remove player button" onClick={e=> this.removePlayer(playerName)}/>
+          {/* <button className="tap-bttn-addplayer" onClick={e=> this.removePlayer(playerName)}>-</button> */}
           <div className="new-player-name">{playerName}</div>
         </div>
       )
@@ -83,7 +89,8 @@ export default class SetPlayers extends Component {
             </div>
             <div className="add-player">
               <input placeholder="Add player" className="tap-input-player" value={this.state.player} onChange={e => this.handleChange(e.target.value)}/>
-              <button className="tap-bttn-addplayer" onClick={e=> this.addPlayer()}>+</button>
+              <img src={add} className="tap-bttn-image" alt="add player button" onClick={e=> this.addPlayer()} style={{opacity: this.state.opacity}}/>
+              {/* <button className="tap-bttn-addplayer" onClick={e=> this.addPlayer()}>+</button> */}
             </div>
           </div>
 

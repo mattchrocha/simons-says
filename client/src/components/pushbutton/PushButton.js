@@ -15,16 +15,21 @@ export default class PushButton extends React.Component {
       id: null,
       bgcolor: generateGradient(),
       mainGameButton: props.mainGameButton,
+      isConnected: props.isConnected,
       bigMessage: "",
       userMessage: null
       // buttonid: props.match.params.id
     };
   }
 
+  enterSocketRoom = () => {
+    this.socket.emit("room", this.state.room);
+  }
+
   componentDidMount() {
     this.socket = io('localhost:3010');
     this.socket.on("connect", () => {
-      this.socket.emit("room", this.state.room);
+      // this.socket.emit("room", this.state.room);
       this.setState({ id: this.socket.id });
     });
 
@@ -44,9 +49,17 @@ export default class PushButton extends React.Component {
     });
 
     if (this.state.mainGameButton) {
+      this.enterSocketRoom();
       this.props.startGame();
     }
   }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.isConnected !== prevProps.isConnected){
+      this.setState({isConnected: this.props.isConnected})
+      this.enterSocketRoom()
+    }
+  }  
 
   nextPlayer = ({player, message}) => {
     this.setState({userMessage: {player, message}})
@@ -101,10 +114,10 @@ export default class PushButton extends React.Component {
 
   repeat = () => {
     this.setState({ bigMessage: "REPEAT THE CODE" });
-    this.onSuccess();
+    this.onSuccessFast();
     setTimeout(() => {
       this.setState({ bigMessage: ""})
-    }, 1000)
+    }, 100)
   }
 
 
@@ -181,6 +194,20 @@ export default class PushButton extends React.Component {
       screenbutton.setAttribute(
         "style",
         `transition: opacity 1s; background-color: ${this.state.bgcolor}`
+      );
+    }, 300);
+  };
+
+  onSuccessFast = () => {
+    let screenbutton = document.getElementsByClassName("screenbutton")[0];
+    screenbutton.setAttribute(
+      "style",
+      `opacity: 1;  background-color: ${this.state.bgcolor}`
+    );
+    setTimeout(() => {
+      screenbutton.setAttribute(
+        "style",
+        `transition: opacity 0.5s; background-color: ${this.state.bgcolor}`
       );
     }, 300);
   };

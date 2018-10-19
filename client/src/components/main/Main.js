@@ -6,6 +6,7 @@ import SetRoom from "../steps/SetRoom";
 import SetPlayers from "../steps/SetPlayers";
 import SetButtons from "../steps/SetButtons";
 import OnYourMarks from '../steps/OnYourMarks';
+import GameOver from '../steps/GameOver';
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Game from '../game2/Game'
 
@@ -79,6 +80,10 @@ export default class Main extends Component {
     }, 1020)
   }
 
+  gameOver = () => {
+    this.setState({page: "GameOver", displayGame: false, backgroundColor: "#CF8EA3"});
+  }
+
   render() {
     let thisPage = () => {
       if (this.state.page === "Home") return (
@@ -106,11 +111,16 @@ export default class Main extends Component {
           <OnYourMarks players={this.state.players} color="#CF8EA3" startGame={e => this.startGame()}/>
         </CSSTransition>
       )
+      if (this.state.page === "GameOver") return (
+        <CSSTransition timeout={{enter: 1000, exit: 900}} classNames="example" key="onmarks">
+          <GameOver players={this.state.players} color="#CF8EA3" startGame={e => this.startGame()}/>
+        </CSSTransition>
+      )
     }
 
     let game = () => {
       if (this.state.game){
-        return (<Game room={this.state.gameRoom} players={this.state.players} getConnectedButtons={buttons => this.getConnectedButtons(buttons)} displayGame={this.state.displayGame}/>)
+        return (<Game room={this.state.gameRoom} players={this.state.players} getConnectedButtons={buttons => this.getConnectedButtons(buttons)} displayGame={this.state.displayGame} gameOver={e => this.gameOver()}/>)
       }
     }
 
