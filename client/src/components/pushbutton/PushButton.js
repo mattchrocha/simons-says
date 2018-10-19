@@ -27,7 +27,7 @@ export default class PushButton extends React.Component {
   }
 
   componentDidMount() {
-    this.socket = io('localhost:3010');
+    this.socket = io();
     this.socket.on("connect", () => {
       // this.socket.emit("room", this.state.room);
       this.setState({ id: this.socket.id });

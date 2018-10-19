@@ -66,7 +66,7 @@ export default class SetButtons extends Component {
           </div>
 
           <div className="tap-input roomname">
-            tapcode.it/
+            tapcodeit.herokuapp.com/
             <br />
             {this.state.roomName}
           </div>
