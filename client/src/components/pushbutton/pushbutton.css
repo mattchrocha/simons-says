@@ -19,3 +19,19 @@
   color: white;
   font-size: 50px;
 }
+
+.user-message-player {
+  width: 260px;
+  font-weight: 800;
+  font-style: normal;
+  color: white;
+  font-size: 45px;
+}
+
+.user-message-text{
+  width: 260px;
+  font-weight: 800;
+  font-style: normal;
+  color: white;
+  font-size: 30px;
+}

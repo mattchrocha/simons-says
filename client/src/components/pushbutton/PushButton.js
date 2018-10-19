@@ -22,7 +22,7 @@ export default class PushButton extends React.Component {
   }
 
   componentDidMount() {
-    this.socket = io();
+    this.socket = io('localhost:3010');
     this.socket.on("connect", () => {
       this.socket.emit("room", this.state.room);
       this.setState({ id: this.socket.id });
@@ -99,7 +99,7 @@ export default class PushButton extends React.Component {
     }, 1000)
   }
 
-  memorize = () => {
+  repeat = () => {
     this.setState({ bigMessage: "REPEAT THE CODE" });
     this.onSuccess();
     setTimeout(() => {
@@ -224,7 +224,7 @@ export default class PushButton extends React.Component {
             >
               <div className="user-message-box">
                 <div className="user-message-player">{this.state.userMessage.player}</div>
-                <div className="user-message-player">{this.state.userMessage.message}</div>
+                <div className="user-message-text">{this.state.userMessage.message}</div>
               </div>
             </CSSTransition>
           )}

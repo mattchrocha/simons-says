@@ -74,6 +74,7 @@
   font-size: 20px;
   color: #cfc18e;
   margin-top: 16px;
+  text-align: center;
 }
 
 .tap-input::placeholder {

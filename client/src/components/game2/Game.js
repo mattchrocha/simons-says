@@ -20,6 +20,7 @@ class Game extends Component {
       roundSequence: [],
       remainingPlayers: props.players,
       currentPlayer: null,
+      playerIndex: 0,
       nextPlayer: null,
       round: 0,
       message: "push first button of the sequence to start"
@@ -42,7 +43,7 @@ class Game extends Component {
   };
 
   componentDidMount() {
-    this.socket = io();
+    this.socket = io('localhost:3010');
 
     this.socket.on("connect", () => {
       this.socket.emit("room", this.state.room);
@@ -71,8 +72,8 @@ class Game extends Component {
   }
 
   startGame1 = () => {
-    // this.socket.emit("get start buttons");
-    this.startGame2()
+    this.socket.emit("get start buttons");
+    // this.startGame2()
   }
 
   startGame2 = () => {
@@ -81,41 +82,93 @@ class Game extends Component {
     disableScroll();
     setTimeout(()=>{
       this.socket.emit("start game");
-      let nextPlayer = this.state.remainingPlayers[this.state.round]
-      let round = this.state.round + 1
-      this.setState({nextPlayer, round})
+      // let nextPlayer = this.state.remainingPlayers[this.state.playerIndex]
+      // let round = this.state.round + 1
+      // this.setState({nextPlayer, round})
       setTimeout(()=> {
         this.newRound();
-      }, 3200)
+      }, 4500)
     }, 500)
   }
 
+  findNextPlayer = () => {
+    let {players, round, playerIndex} = this.state
+    console.log("busca el player")
+    let remainingPlayers = [...this.state.remainingPlayers]
+    let currentPlayer;
+    if (round === 0){
+      console.log("empieza de zero con el player")
+      currentPlayer = players[0]
+      this.setState({currentPlayer, playerIndex: 0})
+    } else {
+      console.log("no es ronda 0")
+      let lastPlayer = players[playerIndex].toString()
+      let nextIndex;
+      if (remainingPlayers.indexOf(lastPlayer) > -1){
+        console.log(remainingPlayers)
+        console.log(remainingPlayers.includes(lastPlayer))
+        console.log("el last player no fue eliminado")
+        nextIndex = remainingPlayers.indexOf(lastPlayer) + 1 ;
+        if (nextIndex === remainingPlayers.length) nextIndex = 0;
+        currentPlayer = remainingPlayers[nextIndex];
+        playerIndex = players.indexOf(currentPlayer);
+        this.setState({currentPlayer, playerIndex})
+      } else {
+        console.log("last player SI FUE eliminado")
+        let found = false
+        while (!found) {
+          if (playerIndex === players.length) {
+            playerIndex = 0;
+          }
+          let thisPlayer = players[playerIndex]
+          console.log("en el while",thisPlayer)
+          if (remainingPlayers.includes(thisPlayer)){
+            currentPlayer = thisPlayer
+            this.setState({currentPlayer, playerIndex})
+            found = true;
+          } else {
+            playerIndex++;
+          }
+        }
+      }
+    }
+  }
+
   newRound = () => {
-    let player = this.state.nextPlayer;
-    let nextPlayer = this.state.remainingPlayers[this.state.round]
+    this.findNextPlayer();
+    console.log("NuevaRonda")
+    let {round, currentPlayer} = this.state;
+    round++;
     let message = "You're next"
-    let content = {player, message}
+    let content = {player: currentPlayer, message}
     let sequence = [...this.state.sequence]
     let buttons = [...this.state.buttons]
+    
+    buttons.splice(buttons.indexOf(this.socket.id), 1)
+    
     sequence.push(buttons[Math.floor(Math.random()*buttons.length)])
+
     this.socket.emit("player message", {type: "next player", content});
-    this.setState({currentPlayer: player, nextPlayer, sequence});
+    this.setState({sequence, round});
+
     setTimeout(()=> {
       this.socket.emit("feedback", { feedback: "memorize" });
-    }, 1800)
+    }, 2000)
     setTimeout(()=> {
       this.playSequence()
-    }, 3000)
+    }, 4000)
   }
 
   playSequence = () => {
     let sequence = [...this.state.sequence]
-    let time = 1000 * (sequence.length + 2)
-    
+    let time = 850 * (sequence.length + 1.5)
+    console.log("esta secuencia")
+    console.log(sequence)
+
     sequence.forEach((id, index) => {
       setTimeout(() => {
         this.socket.emit("feedback", { id, feedback: "success" });
-      }, 1000 * (index + 1));
+      }, 850 * (index + 1));
     })
     setTimeout(()=>{
       this.setState({isListening: true});
@@ -124,45 +177,66 @@ class Game extends Component {
   }
 
   play = id => {
-    let { roundSequence, sequence, round } = this.state;
-
-    if (roundSequence.length === sequence.length) {
-      round++;
-      sequence.push(id);
-      this.socket.emit("feedback", { id, feedback: "round" });
-      this.setState({
-        sequence,
-        roundSequence: [],
-        round,
-        message: "new round"
-      });
-    } else {
+    let { roundSequence, sequence} = this.state;
+    // if (roundSequence.length === sequence.length) {
+    //   round++;
+    //   sequence.push(id);
+    //   this.socket.emit("feedback", { id, feedback: "round" });
+    //   this.setState({
+    //     sequence,
+    //     roundSequence: [],
+    //     round,
+    //     message: "new round"
+    //   });
+    // } 
+    // else {
       roundSequence.push(id);
       if (!this.checkSequence(roundSequence, sequence)) {
         this.socket.emit("feedback", { id, feedback: "failure" });
-        this.setState({
-          message: "you lost",
-          sequence: [],
-          roundSequence: [],
-          round: 0
-        });
+
+        let {currentPlayer} = this.state;
+        let remainingPlayers = [...this.state.remainingPlayers]
+        remainingPlayers.splice(remainingPlayers.indexOf(currentPlayer), 1)
+        let message = "has been eliminated";
+        let content = {message, player: currentPlayer}
+
+        this.setState({remainingPlayers, isListening: false});
+        setTimeout(()=> {
+          this.socket.emit("player message", {type: "player eliminated", content});
+        },2100)
+        if (remainingPlayers.length === 1){
+          setTimeout(()=>{
+            let player = remainingPlayers[0];
+            let message = "wins";
+            let content = {player, message};
+            this.socket.emit("player message", {type: "wins", content});
+          },4200)
+        } else {
+          console.log(this.state.remainingPlayers)
+          this.setState({roundSequence: []})
+          setTimeout(()=>{
+            this.newRound()
+          },4200)
+        }
+        
+
+      } else if (roundSequence.length === sequence.length){
+        this.socket.emit("feedback", { feedback: "round" });
+        this.setState({roundSequence: [], isListening: false})
+        setTimeout(()=> {
+          this.newRound();
+        }, 3000)
       } else {
         this.socket.emit("feedback", { id, feedback: "success" });
-        roundSequence.length === sequence.length
-          ? this.setState({
-              roundSequence,
-              message: "add button to the sequence"
-            })
-          : this.setState({ roundSequence, message: "keep on" });
       }
-    }
+    // }
   };
 
   checkSequence = (roundSequence, sequence) => {
-    console.log("CHECKING IF THIS");
-    console.log(sequence[roundSequence.length - 1]);
-    console.log("EQUALS THIS");
-    console.log(roundSequence[roundSequence.length - 1]);
+    // console.log("CHECKING IF THIS");
+    // console.log(sequence[roundSequence.length - 1]);
+    // console.log("EQUALS THIS");
+    // console.log(roundSequence[roundSequence.length - 1]);
     return sequence[roundSequence.length - 1] ===
       roundSequence[roundSequence.length - 1]
       ? true
@@ -170,7 +244,7 @@ class Game extends Component {
   };
 
   componentDidUpdate = () => {
-    console.log("game component updated");
+    // console.log("game component updated");
     // console.log(this.state.buttons)
     // console.log(this.state.sequence)
     // console.log(`Round ${this.state.round}`)
